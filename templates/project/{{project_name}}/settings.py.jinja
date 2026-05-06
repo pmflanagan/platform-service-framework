@@ -348,6 +348,11 @@ if (env_settings := Path(apps_settings_dir / f"{environment}.py")).exists():
     if hasattr(env_module, "validators"):
         DYNACONF.validators.register(*env_module.validators)
 
+# Run validators directly on DYNACONF to apply cast transformations.
+# DAB's validate() in export() runs on a clone, so cast transformations don't persist.
+# This enables PostgreSQL OPTIONS normalization and other cast-based normalizations.
+DYNACONF.validators.validate()
+
 # Update django.conf.settings with DYNACONF keys.
 export(__name__, DYNACONF, validation=True)
 

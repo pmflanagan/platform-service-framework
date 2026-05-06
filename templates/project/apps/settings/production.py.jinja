@@ -34,7 +34,11 @@ Validators are registered in {{ project_name }}/settings.py and run during expor
 
 from dynaconf import Validator
 
-validators = []
+from apps.settings.defaults import framework_validators
+
+validators = [
+    *framework_validators,  # Include framework-provided normalization validators
+]
 
 # =============================================================================
 # Security Settings

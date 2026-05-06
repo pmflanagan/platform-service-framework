@@ -5,6 +5,12 @@ Inherits from ./defaults.py and adds test-specific settings
 NOTE: Tests use PostgreSQL to match the production environment setup.
 """
 
+from apps.settings.defaults import framework_validators
+
+validators = [
+    *framework_validators,  # Include framework-provided normalization validators
+]
+
 # Basic required settings
 DEBUG = False
 TESTING = True
